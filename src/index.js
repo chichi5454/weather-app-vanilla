@@ -75,6 +75,7 @@ function displaycelciusTemperature(event) {
 }
 
 celciusTemperature = null;
+
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 
