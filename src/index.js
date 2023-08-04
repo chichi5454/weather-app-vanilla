@@ -5,18 +5,18 @@ function formatDate(timestamp) {
     "Sunday",
     "Monday",
     "Tuesday",
-    "Wednay",
+    "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
   ];
   let day = days[date.getDay()];
   let hours = date.getHours();
-  if (hours < 0) {
+  if (hours < 10) {
     hours = `0${hours}`;
   }
   let minutes = date.getMinutes();
-  if (minutes < 0) {
+  if (minutes < 10) {
     minutes = `0${minutes}`;
   }
   return `${day} ${hours}:${minutes}`;
@@ -24,24 +24,29 @@ function formatDate(timestamp) {
 
 function displayForecast(response) {
   let forecast = response.data.daily;
+  console.log(forecast);
 
-  let forecastElement = document.querySelector("#weather-forecast");
+  let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
-  let days = ["Thur", "Fri", "Sat", "Sun", "Mon", "Tue"];
   forecast.forEach(function (forecastDay) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2">
+    forecastHTML += `<div class="col-2">
       <div class="weather-forecast-date">
          ${forecastDay.dt}
       </div>
-     <img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" width="36">
+     <img src="https://openweathermap.org/img/wn/${
+       forecastDay.weather[0].icon
+     }@2x.png" alt="" width="36">
     <div class="weather-forecast-temperatures">
-      <span class="weather-forecast-temperature-max">  ${forecastDay.temp.max}°</span>
-       <span class="weather-forecast-temperature-min"> ${forecastDay.temp.min}°</span>
+      <span class="weather-forecast-temperature-max">${Math.round(
+        forecastDay.temp.max
+      )}°</span>
+       <span class="weather-forecast-temperature-min">${Math.round(
+         forecastDay.temp.min
+       )}°</span>
     </div>
-    </div>`;
+    </div>
+    `;
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -69,7 +74,7 @@ function displayTemperature(response) {
     "src",
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
-  iconElement.setAttribute("alt", `response.data.weather[0].description`);
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 function search(city) {
   let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
