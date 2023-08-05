@@ -34,8 +34,9 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
-  forecast.forEach(function (forecastDay) {
-    forecastHTML += `<div class="col-2">
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML += `<div class="col-2">
       <div class="weather-forecast-date">
          ${formatDay(forecastDay.dt)}
       </div>
@@ -52,6 +53,7 @@ function displayForecast(response) {
     </div>
     </div>
     `;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -99,6 +101,8 @@ function handleSubmit(event) {
   let cityInputElement = document.querySelector("#city-input");
   search(cityInputElement.value);
 }
+/* removing fahrenheit Temperature
+
 function displayfahrenheitTemperature(event) {
   event.preventDefault();
   let fahrenheitTemperature = (celciusTemperature * 9) / 5 + 32;
@@ -118,14 +122,16 @@ function displaycelciusTemperature(event) {
 }
 
 celciusTemperature = null;
+*/
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
+/* removing Temperature link
 
 let celciuslink = document.querySelector("#celcius-link");
 celciuslink.addEventListener("click", displaycelciusTemperature);
 
 let fahrenheitlink = document.querySelector("#fahrenheit-link");
 fahrenheitlink.addEventListener("click", displayfahrenheitTemperature);
-
+*/
 search("Nairobi");
